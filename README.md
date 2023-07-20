@@ -1,4 +1,4 @@
-# Pokémon Data Analysis Chat Application
+# PokiVerse
 
 ## Data Story
 This project aims to explore and visualize the battle statistics of various Pokémon species using a [pokemon dataset](https://www.kaggle.com/datasets/rohanpatil63/pokemon-dataset). The main goal of this project is to identify the Patterns/Trends & Relationships among the data, Also the project is designed in such a way that even newbies can easily understand the process of data analytics. This Project will even teach you the basics of data analytics as well learn the best practices used in the industry.
