@@ -51,4 +51,4 @@ This project aims to explore and visualize the battle statistics of various Pok�
 
 ## Conclusions Gained
 
-Feel free to explore the dataset and analyze the Pokémon stats using this interactive chat application!
+Feel free to explore the dataset and analyze the Pokémon stats!!!
