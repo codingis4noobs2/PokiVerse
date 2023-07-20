@@ -1,7 +1,15 @@
 # PokiVerse
 ![PokiVerse](https://i.ibb.co/4g9vGt2/Poki-Verse.png)
 
-## Data Story
+# Table of Contents
+1. [Introduction](#introduction)
+2. [Where to access](#where-to-access)
+3. [Features](#features)
+4. [Technologies Used](#technologies-used)
+5. [Usage](#usage)
+6. [Conclusions Gained](#conclusions-gained)
+
+## Introduction
 This project aims to explore and visualize the battle statistics of various Pok√©mon species using a [pokemon dataset](https://www.kaggle.com/datasets/rohanpatil63/pokemon-dataset). The main goal of this project is to identify the Patterns/Trends & Relationships among the data, Also the project is designed in such a way that even newbies can easily understand the process of data analytics. This Project will even teach you the basics of data analytics as well learn the best practices used in the industry.
 
 ## Where to access
@@ -38,7 +46,7 @@ This project aims to explore and visualize the battle statistics of various Pok√
 
 - **Seaborn**: A data visualization library built on top of Matplotlib, used for enhancing the visual aesthetics of the histograms.
 
-## Usage(for streamlit)
+## Usage
 
 1. Clone this repository to your local machine.
 
