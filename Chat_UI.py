@@ -84,7 +84,7 @@ def create_radar_chart(pokemon_name, pokemon_stats):
     )
     fig.update_layout(title=f"Stats of {pokemon_name}")
     fig.update_traces(fill='toself')
-    return fig
+    st.plotly_chart(fig)
 
 # Function to display Pokémon comparator
 def display_comparator(pokemon_name_1, pokemon_stats_1, pokemon_name_2, pokemon_stats_2):
