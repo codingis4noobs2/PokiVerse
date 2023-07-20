@@ -67,15 +67,27 @@ def display_message(text, is_user='Ash'):
 
 # Function to display the conversation
 def display_chat(df):
+    """
+    Function to display a all of the messages on the user interface.
+
+    Parameters:
+    dataframe (df): Dataframe
+    """
+
+    # Conversation 1
     display_message("Hey Ash👋🏼, Dawn sent me this image. She was wondering what you were doing with those graphs and charts?🤔", "May")
     st.image("https://i.ibb.co/Tq1JrvJ/Ash-doing-Analysis.png", width=400)
     display_message("Hey May👋🏼, I was analyzing the Pokémon dataset. It's part of the esteemed Angelhack Monthly Challenge Series, and it has an overall prize pool of 5000 Pokémon Dollars💵", "Ash")
     display_message("Sounds exciting, Ash. I'm eager to learn more about this dataset. It might assist us in our explorations.", "May")
     display_message("Absolutely, May. This dataset is indeed a valuable resource for our adventures.", "Ash")
+
+
+    # Conversation 2
     display_message("I'm new to this whole data analysis field, though. 😭", "May")
     display_message("No worries, May. We're in this together.", "Ash")
     display_message("Let's kick off by loading the dataset. I've even included the code for you, in case you're unsure about how to do this.", "Ash")
-    tab1, tab2 = st.tabs(['Dataset', 'Code'])
+    
+    tab1, tab2 = st.tabs(['Results', 'Code'])
     with tab1:
         st.dataframe(df, height=220)
     with tab2:
@@ -83,19 +95,22 @@ def display_chat(df):
             """
             import pandas as pd
 
-
-            df = pd.read_csv('pokemon.csv')
-            print(df)
             # pd.read_csv() is used to read data from a CSV (Comma-Separated Values) file and create a DataFrame, 
             # which is a two-dimensional tabular data structure.
+            df = pd.read_csv('pokemon.csv')
+            print(df)
             """,
             language="python"
         )
+
+
+    # Conversation 3
     display_message("Wow, this dataset is quite extensive😱. How are we going to perform analysis on such a large dataset?", "May")
     display_message("The library I used to load the data and create a DataFrame from this dataset is Pandas. Pandas is widely used because it offers a vast number of useful methods to deal with data.", "Ash")
     display_message("That's great, Ash! I've learned something new today😊", "May")
     display_message("HAHAHA, enough talking. Let's jump right into the world of data!", "Ash")
     display_message("Let's start by getting some basic information about the dataset.", "Ash")
+    
     tab1, tab2 = st.tabs(['Results', 'Code'])
     with tab1:
         buffer = io.StringIO()
@@ -111,6 +126,9 @@ def display_chat(df):
             """,
             language="python"
         )
+
+
+    # Conversation 4
     display_message("The dataset consists of 13 columns and 1194 rows. Additionally, 9 columns have an integer datatype, and 4 columns have an object datatype.", "Ash")
     display_message("But I intentionally left out one detail. Can you guess what it is?", "Ash")
     display_message("Yes, yes! I noticed it. The Type-2 column has some null values in it.", "May")
@@ -118,6 +136,7 @@ def display_chat(df):
     display_message("In this case, it is not necessary to replace the null values. We will simply ignore them.", "Ash")
     display_message("Ohh, great! Well, I was wondering where do we start from?", "May")
     display_message("We can start by analyzing the types of Pokémon. Let's create a pie chart to better understand the distribution of types in Type-1 and Type-2.", "Ash")
+    
     tab1, tab2 = st.tabs(['Results', 'Code'])
     with tab1:
         type1_counts = df['Type1'].value_counts()
@@ -131,19 +150,23 @@ def display_chat(df):
     with tab2:
         st.code(
             """
+            import plotly.express as px
+
             type1_counts = df['Type1'].value_counts()
             type2_counts = df['Type2'].value_counts()
-
             fig = px.pie(values=type1_counts.values, names=type1_counts.index, title='Type 1 Distribution')
-            st.plotly_chart(fig)
-
+            fig.show()
             fig = px.pie(values=type2_counts.values, names=type2_counts.index, title='Type 2 Distribution')
-            st.plotly_chart(fig)
+            fig.show()
             """
         )
-    display_message("This visualization makes it so easy to discern that Flying is the most common type in both Type-1 and Type-2.", "May")
+
+
+    # Conversation 5
+    display_message("This visualization makes it so easy to discern that Water has the highest count in Type-1, while Flying has highest count in Type-2.", "May")
     display_message("Great observation, May! Let's now dive into the distribution of Pokémon stats.", "Ash")
     stat = st.selectbox("Choose a stat to visualize", ['Total', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'])
+    
     tab1, tab2 = st.tabs(['Result', 'Code'])
     with tab1:
         plt.figure(figsize=(10, 6))
@@ -156,15 +179,16 @@ def display_chat(df):
             import matplotlib.pyplot as plt
             import seaborn as sns
 
-
             plt.figure(figsize=(10, 6))
             sns.histplot(df[stat], kde=True)
             plt.title(f'Distribution of Count vs {stat}')
             plt.show()
             """
         )
+
+    # Conversation 6
     display_message("It's fascinating how useful these libraries can be!", "May")
-    display_message("But I'm still having difficulty understanding this. If I want to identify the percentage of Pokémon with stats superior to a given value, how can I do that?", "May")
+    display_message("But I'm still having difficulty understanding this. If I want to identify the number of Pokémon with stats superior to a given value, how can I do that?", "May")
     display_message("That's easy. Let me show you how.", "Ash")
     stat = st.selectbox("Choose a stat to get the percentage of Pokémon having better stats than a given value", ['Total', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'])
     start = int(df[stat].min())
@@ -173,6 +197,9 @@ def display_chat(df):
     total_pokemon = df.shape[0]
     higher_total_pokemon = df[df[stat] > x].shape[0]
     st.write(f"{higher_total_pokemon} Pokémon have better {stat} than {x} {stat}")
+
+    
+    # Conversation 7
     display_message("Amazing! Thanks to you, I can now ascertain the number of Pokémon that exceed a specified value.", "May")
     display_message("Wait a second! We seemed to have skipped the basics.", "Ash")
     display_message("What's the matter, Ash?", "May")
