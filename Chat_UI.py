@@ -4,6 +4,8 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
+import plotly.graph_objects as go
+
 
 # Function to display a single message
 def display_message(text, is_user='Ash'):
@@ -64,6 +66,57 @@ def display_message(text, is_user='Ash'):
             """,
             unsafe_allow_html=True
         )
+
+# Function to create a radar chart
+def create_radar_chart(pokemon_name, pokemon_stats):
+    """
+    """
+    hp = pokemon_stats['HP'].values[0]
+    attack = pokemon_stats['Attack'].values[0]
+    defense = pokemon_stats['Defense'].values[0]
+    sp_atk = pokemon_stats['Sp. Atk'].values[0]
+    sp_def = pokemon_stats['Sp. Def'].values[0]
+    speed = pokemon_stats['Speed'].values[0]
+    fig = px.line_polar(
+        r = [hp, attack, defense, sp_atk, sp_def, speed], 
+        theta=['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'], 
+        line_close=True
+    )
+    fig.update_layout(title=f"Stats of {pokemon_name}")
+    fig.update_traces(fill='toself')
+    return fig
+
+# Function to display Pokémon comparator
+def display_comparator(pokemon_name_1, pokemon_stats_1, pokemon_name_2, pokemon_stats_2):
+    """
+    """
+    categories = ['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed']
+    hp1, hp2 = pokemon_stats_1['HP'].values[0], pokemon_stats_2['HP'].values[0]
+    attack1, attack2 = pokemon_stats_1['Attack'].values[0], pokemon_stats_2['Attack'].values[0]
+    defense1, defense2 = pokemon_stats_1['Defense'].values[0], pokemon_stats_2['Defense'].values[0]
+    sp_atk1, sp_atk2 = pokemon_stats_1['Sp. Atk'].values[0], pokemon_stats_2['Sp. Atk'].values[0]
+    sp_def1, sp_def2 = pokemon_stats_1['Sp. Def'].values[0], pokemon_stats_2['Sp. Def'].values[0]
+    speed1, speed2 = pokemon_stats_1['Speed'].values[0], pokemon_stats_2['Speed'].values[0]
+
+    fig = go.Figure()
+
+    fig.add_trace(go.Scatterpolar(
+        r=[hp1, attack1, defense1, sp_atk1, sp_def1, speed1],
+        theta=categories,
+        fill='toself',
+        name=pokemon_name_1
+    ))
+
+    fig.add_trace(go.Scatterpolar(
+        r=[hp2, attack2, defense2, sp_atk2, sp_def2, speed2],
+        theta=categories,
+        fill='toself',
+        name=pokemon_name_2
+    ))
+
+    fig.update_layout(title=f"Stats of {pokemon_name_1} vs {pokemon_name_2}")
+    st.plotly_chart(fig)
+
 
 # Function to display the conversation
 def display_chat(df):
@@ -167,7 +220,7 @@ def display_chat(df):
     display_message("Great observation, May! Let's now dive into the distribution of Pokémon stats.", "Ash")
     stat = st.selectbox("Choose a stat to visualize", ['Total', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'])
     
-    tab1, tab2 = st.tabs(['Result', 'Code'])
+    tab1, tab2 = st.tabs(['Results', 'Code'])
     with tab1:
         plt.figure(figsize=(10, 6))
         sns.histplot(df[stat], kde=True)
@@ -190,14 +243,15 @@ def display_chat(df):
     display_message("It's fascinating how useful these libraries can be!", "May")
     display_message("But I'm still having difficulty understanding this, If I want to identify the number of Pokémons with stats superior to a given value, how can I do that?", "May")
     display_message("That's easy. Let me show you how.", "Ash")
-    stat = st.selectbox("Choose a stat to get the number of Pokémon having better stats than a given value", ['Total', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'])
+    stat_choosen = st.selectbox("Choose a stat to get the number of Pokémon having better stats than a given value", ['Total', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'])
     x = st.slider(
         "Select X", 
-        int(df[stat].min()), 
-        int(df[stat].max())
+        int(df[stat_choosen].min()), 
+        int(df[stat_choosen].max())
     )
-    higher_total_pokemon = df[df[stat] > x].shape[0]
-    st.write(f"{higher_total_pokemon} Pokémon have better {stat} than {x} {stat} Value")
+    higher_total_pokemon = df[df[stat_choosen] > x].shape[0]
+    st.write(f"{higher_total_pokemon} Pokémon have better {stat_choosen} than {x} {stat_choosen} Value")
+    st.markdown("---")
 
     
     # Conversation 7
@@ -205,15 +259,15 @@ def display_chat(df):
     display_message("Wait a second! We seemed to have skipped the very basic part", "Ash")
     display_message("What did we miss, Ash?", "May")
     display_message("We should find out the top 5 strongest and weakest Pokémon based on their stats. Let me demonstrate how.", "Ash")
-    stat = st.selectbox("Choose a stat to get the 5 Pokémon with the highest/lowest stats", ['Total', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'])
-    top_five = df.nlargest(5, stat)[['Names', stat]]
-    bottom_five = df.nsmallest(5, stat)[['Names', stat]]
+    stat_choosen = st.selectbox("Choose a stat to get the 5 Pokémon with the highest/lowest stats", ['Total', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'])
+    top_five = df.nlargest(5, stat_choosen)[['Names', stat_choosen]]
+    bottom_five = df.nsmallest(5, stat_choosen)[['Names', stat_choosen]]
     col1, col2 = st.columns(2)
     with col1:
-        st.write(f"Pokemons Having Highest {stat}")
+        st.write(f"Pokemons Having Highest {stat_choosen}")
         st.write(top_five)
     with col2:
-        st.write(f"Pokemons Having Lowest {stat}")
+        st.write(f"Pokemons Having Lowest {stat_choosen}")
         st.write(bottom_five)
    
     
@@ -221,19 +275,15 @@ def display_chat(df):
     display_message("This is incredible! I'm gaining so much knowledge today!!", "May")
     display_message("Let's proceed to analyze Pokémon stats using a radar chart.", "Ash")
     pokemon_name = st.selectbox("Select a Pokémon to analyze", df['Names'])
-    pokemon = df[df['Names'] == pokemon_name]
-    if not pokemon.empty:
-        hp = pokemon['HP'].values[0]
-        attack = pokemon['Attack'].values[0]
-        defense = pokemon['Defense'].values[0]
-        sp_atk = pokemon['Sp. Atk'].values[0]
-        sp_def = pokemon['Sp. Def'].values[0]
-        speed = pokemon['Speed'].values[0]
-        fig = px.line_polar(df, r=[hp, attack, defense, sp_atk, sp_def, speed], theta=['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'], line_close=True)
-        fig.update_traces(fill='toself')
-        st.plotly_chart(fig)
-    display_message("Wait i got an idea💡", "Ash")
-
+    pokemon_stats = df[df['Names'] == pokemon_name]
+    create_radar_chart(pokemon_name, pokemon_stats)
+    
 
     # Conversation 9
+    display_message("Wait i got an idea💡", "Ash")
     display_message("Since we already have a stat tracker for individual Pokémon, why don't we create a Pokémon comparator too?", "Ash")
+    pokemon_name_1 = st.selectbox("Select the first Pokémon", df['Names'], key="1")
+    pokemon_name_2 = st.selectbox("Select the second Pokémon", df['Names'], key="2")
+    pokemon_stats_1 = df[df['Names'] == pokemon_name_1]
+    pokemon_stats_2 = df[df['Names'] == pokemon_name_2]
+    display_comparator(pokemon_name_1, pokemon_stats_1, pokemon_name_2, pokemon_stats_2)
