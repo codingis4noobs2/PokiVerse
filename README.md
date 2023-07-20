@@ -14,7 +14,6 @@ This project aims to explore and visualize the battle statistics of various Pok√
 
 ## Where to access
 1. Streamlit(Hosted Online): [Pokiverse](https://pokiverse.streamlit.app/)
-2. Download the Jupyter Notebook which is inside of jupyter_notebook folder.
 
 ## Features
 
