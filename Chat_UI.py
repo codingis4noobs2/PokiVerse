@@ -188,26 +188,36 @@ def display_chat(df):
 
     # Conversation 6
     display_message("It's fascinating how useful these libraries can be!", "May")
-    display_message("But I'm still having difficulty understanding this. If I want to identify the number of Pokémon with stats superior to a given value, how can I do that?", "May")
+    display_message("But I'm still having difficulty understanding this, If I want to identify the number of Pokémons with stats superior to a given value, how can I do that?", "May")
     display_message("That's easy. Let me show you how.", "Ash")
-    stat = st.selectbox("Choose a stat to get the percentage of Pokémon having better stats than a given value", ['Total', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'])
-    start = int(df[stat].min())
-    end = int(df[stat].max())
-    x = st.slider("Select X", min_value=start, max_value=end)
-    total_pokemon = df.shape[0]
+    stat = st.selectbox("Choose a stat to get the number of Pokémon having better stats than a given value", ['Total', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'])
+    x = st.slider(
+        "Select X", 
+        int(df[stat].min()), 
+        int(df[stat].max())
+    )
     higher_total_pokemon = df[df[stat] > x].shape[0]
-    st.write(f"{higher_total_pokemon} Pokémon have better {stat} than {x} {stat}")
+    st.write(f"{higher_total_pokemon} Pokémon have better {stat} than {x} {stat} Value")
 
     
     # Conversation 7
     display_message("Amazing! Thanks to you, I can now ascertain the number of Pokémon that exceed a specified value.", "May")
-    display_message("Wait a second! We seemed to have skipped the basics.", "Ash")
-    display_message("What's the matter, Ash?", "May")
+    display_message("Wait a second! We seemed to have skipped the very basic part", "Ash")
+    display_message("What did we miss, Ash?", "May")
     display_message("We should find out the top 5 strongest and weakest Pokémon based on their stats. Let me demonstrate how.", "Ash")
     stat = st.selectbox("Choose a stat to get the 5 Pokémon with the highest/lowest stats", ['Total', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'])
-    highest_total = df.nlargest(5, stat)[['Names', stat]]
-    lowest_total = df.nsmallest(5, stat)[['Names', stat]]
-    st.write(highest_total)
+    top_five = df.nlargest(5, stat)[['Names', stat]]
+    bottom_five = df.nsmallest(5, stat)[['Names', stat]]
+    col1, col2 = st.columns(2)
+    with col1:
+        st.write(f"Pokemons Having Highest {stat}")
+        st.write(top_five)
+    with col2:
+        st.write(f"Pokemons Having Lowest {stat}")
+        st.write(bottom_five)
+   
+    
+    # Conversation 8
     display_message("This is incredible! I'm gaining so much knowledge today!!", "May")
     display_message("Let's proceed to analyze Pokémon stats using a radar chart.", "Ash")
     pokemon_name = st.selectbox("Select a Pokémon to analyze", df['Names'])
@@ -223,4 +233,7 @@ def display_chat(df):
         fig.update_traces(fill='toself')
         st.plotly_chart(fig)
     display_message("Wait i got an idea💡", "Ash")
+
+
+    # Conversation 9
     display_message("Since we already have a stat tracker for individual Pokémon, why don't we create a Pokémon comparator too?", "Ash")
