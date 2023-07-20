@@ -244,14 +244,22 @@ def display_chat(df):
     display_message("But I'm still having difficulty understanding this, If I want to identify the number of Pokémons with stats superior to a given value, how can I do that?", "May")
     display_message("That's easy. Let me show you how.", "Ash")
     stat_choosen = st.selectbox("Choose a stat to get the number of Pokémon having better stats than a given value", ['Total', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'])
-    x = st.slider(
+    tab1, tab2 = st.tabs(['Results', 'Code'])
+    with tab1:
+        x = st.slider(
         "Select X", 
         int(df[stat_choosen].min()), 
         int(df[stat_choosen].max())
     )
     higher_total_pokemon = df[df[stat_choosen] > x].shape[0]
     st.write(f"{higher_total_pokemon} Pokémon have better {stat_choosen} than {x} {stat_choosen} Value")
-    st.markdown("---")
+    with tab2:
+        st.code(
+            """
+            # x can be any value between min & max value of that stat
+            higher_total_pokemon = df[df[stat_choosen] > x].shape[0]
+            """
+        )
 
     
     # Conversation 7
@@ -270,8 +278,23 @@ def display_chat(df):
         st.write(f"Pokemons Having Lowest {stat_choosen}")
         st.write(bottom_five)
    
-    
+
     # Conversation 8
+    display_message("Similary, we can get the best pokemons of any Type with indiviual stats or total stats")
+    stat_choosen = st.selectbox("Choose a stat to get the 5 Pokémon with the highest/lowest stats of a Type", ['Total', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'])
+    type_choosen = st.selectbox("Choose a Type", df['Type1'].unique())
+    choosen_pokemon = df[df['Type1'] == type_choosen]
+    sorted_choosen_pokemon_top = choosen_pokemon.sort_values(stat, ascending=False).head(5)[['Names', stat_choosen]]
+    sorted_choosen_pokemon_bottom = choosen_pokemon.sort_values(stat, ascending=True).head(5)[['Names', stat_choosen]]
+    col1, col2 = st.columns(2)
+    with col1:
+        st.write(f"{type_choosen} Type Pokemons Having Highest {stat_choosen}")
+        st.dataframe(sorted_choosen_pokemon_top)
+    with col2:
+        st.write(f"{type_choosen} Type Pokemons Having Lowest {stat_choosen}")
+        st.dataframe(sorted_choosen_pokemon_bottom)
+
+    # Conversation 9
     display_message("This is incredible! I'm gaining so much knowledge today!!", "May")
     display_message("Let's proceed to analyze Pokémon stats using a radar chart.", "Ash")
     pokemon_name = st.selectbox("Select a Pokémon to analyze", df['Names'])
@@ -279,7 +302,7 @@ def display_chat(df):
     create_radar_chart(pokemon_name, pokemon_stats)
     
 
-    # Conversation 9
+    # Conversation 10
     display_message("Wait i got an idea💡", "Ash")
     display_message("Since we already have a stat tracker for individual Pokémon, why don't we create a Pokémon comparator too?", "Ash")
     pokemon_name_1 = st.selectbox("Select the first Pokémon", df['Names'], key="1")
@@ -293,3 +316,30 @@ def display_chat(df):
         pokemon_stats_2
     )
     display_message("Woohooo🥳, This comparison is gonna help us very much in our exploration", "May")
+
+
+    # Conversation 11
+    display_message("what do you think May, Is it possible there exists a Pokemon who has all same stats?")
+    display_message("Woah, that maybe possible though", "May")
+    display_message("Let's see, we can try")
+    df_equal_stats = df[df[['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed']].apply(lambda x: x.nunique() == 1, axis=1)]
+    st.dataframe(df_equal_stats)
+    display_message("There exists some Pokemons who have such stats👀, This is crazy")
+
+
+    # Conversation 12
+    display_message("Let's try Comparing One Type vs Another Type")
+    display_message("Yes, that will give even more details about the Pokemon nature", "May")
+    fire=df[(df['Type1']=='Fire') | ((df['Type2'])=="Fire")] #contains all fire pokemons
+    water=df[(df['Type1']=='Water') | ((df['Type2'])=="Water")]  #all water pokemons
+    plt.figure(figsize=(10, 6))
+    plt.scatter(fire.Attack.head(50),fire.Defense.head(50),color='red',label='Fire',marker="*",s=50)
+    plt.scatter(water.Attack.head(50),water.Defense.head(50),color='blue',label="Water",s=25)
+    plt.xlabel("Attack")
+    plt.ylabel("Defense")
+    plt.legend()
+    plt.plot()
+    fig=plt.gcf()
+    fig.set_size_inches(12,6)
+    st.pyplot(fig)
+    display_message("This shows that Fire type pokemons have a better attack than Water type pokemons but have a lower defence than water type.")
