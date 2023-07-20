@@ -25,7 +25,7 @@ def main():
     # main page starts
     col1, col2, col3 = st.columns([1, 6, 1])
     with col2:
-        st.image("https://i.ibb.co/thqDjK0/Pokichat.png")
+        st.image("https://i.ibb.co/4g9vGt2/Poki-Verse.png")
 
     st.write("\n")
     st.markdown("---")
