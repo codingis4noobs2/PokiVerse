@@ -1,18 +1,20 @@
-import streamlit as st
+# Importing required libraries
 import io
-import plotly.express as px
-import plotly.graph_objects as go
+import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
+import plotly.express as px
 
+# Function to display a single message
 def display_message(text, is_user='Ash'):
     """
-    This function is used to display the message UI.
+    Function to display a chat message on the user interface.
 
     Parameters:
-    text (str): The text to be displayed.
-    is_user (bool): Whether the message is from the user or not.
+    text (str): The content of the message.
+    sender (str): The sender of the message, default is 'Ash'.
     """
+    # Assign avatar and styles based on the sender
     if is_user == 'Ash':
         avatar_url = "https://i.ibb.co/PZ9KYmr/ash.png"
         message_alignment = "flex-end"
@@ -63,8 +65,8 @@ def display_message(text, is_user='Ash'):
             unsafe_allow_html=True
         )
 
+# Function to display the conversation
 def display_chat(df):
-    # Conversation 1
     display_message("Hey Ash👋🏼, Dawn sent me this image. She was wondering what you were doing with those graphs and charts?🤔", "May")
     st.image("https://i.ibb.co/Tq1JrvJ/Ash-doing-Analysis.png")
     display_message("Hey May👋🏼, I was analyzing the Pokémon dataset. It's part of the esteemed Angelhack Monthly Challenge Series, and it has an overall prize pool of 5000 Pokémon Dollars💵", "Ash")
@@ -162,7 +164,7 @@ def display_chat(df):
             """
         )
     display_message("It's fascinating how useful these libraries can be!", "May")
-    display_message("But I'm still having difficulty understanding this. If I want to identify the number of Pokémon with stats superior to a given value, how can I do that?", "May")
+    display_message("But I'm still having difficulty understanding this. If I want to identify the percentage of Pokémon with stats superior to a given value, how can I do that?", "May")
     display_message("That's easy. Let me show you how.", "Ash")
     stat = st.selectbox("Choose a stat to get the percentage of Pokémon having better stats than a given value", ['Total', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'])
     start = int(df[stat].min())
