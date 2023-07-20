@@ -68,7 +68,7 @@ def display_message(text, is_user='Ash'):
 # Function to display the conversation
 def display_chat(df):
     display_message("Hey Ash👋🏼, Dawn sent me this image. She was wondering what you were doing with those graphs and charts?🤔", "May")
-    st.image("https://i.ibb.co/Tq1JrvJ/Ash-doing-Analysis.png")
+    st.image("https://i.ibb.co/Tq1JrvJ/Ash-doing-Analysis.png", width=400)
     display_message("Hey May👋🏼, I was analyzing the Pokémon dataset. It's part of the esteemed Angelhack Monthly Challenge Series, and it has an overall prize pool of 5000 Pokémon Dollars💵", "Ash")
     display_message("Sounds exciting, Ash. I'm eager to learn more about this dataset. It might assist us in our explorations.", "May")
     display_message("Absolutely, May. This dataset is indeed a valuable resource for our adventures.", "Ash")
