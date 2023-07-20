@@ -36,4 +36,13 @@ This chat application allows users to explore and analyze a Pokémon dataset usi
 
 1. Clone this repository to your local machine.
 
-2. Install the required dependencies using the following command:
+2. Install the required dependencies using the following command: `pip install -r requirements.txt`
+
+3. Run the application using the following command: `streamlit run app.py`
+
+
+4. Access the application in your web browser at `http://localhost:8501`.
+
+5. Follow the chat conversation between "Ash" and "May" to explore and analyze the Pokémon dataset interactively.
+
+Feel free to explore the dataset and analyze the Pokémon stats using this interactive chat application!
