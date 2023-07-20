@@ -286,4 +286,10 @@ def display_chat(df):
     pokemon_name_2 = st.selectbox("Select the second Pokémon", df['Names'], key="2")
     pokemon_stats_1 = df[df['Names'] == pokemon_name_1]
     pokemon_stats_2 = df[df['Names'] == pokemon_name_2]
-    display_comparator(pokemon_name_1, pokemon_stats_1, pokemon_name_2, pokemon_stats_2)
+    display_comparator(
+        pokemon_name_1, 
+        pokemon_stats_1, 
+        pokemon_name_2, 
+        pokemon_stats_2
+    )
+    display_message("Woohooo🥳, This comparison is gonna help us very much in our exploration", "May")
