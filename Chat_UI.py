@@ -162,7 +162,7 @@ def display_chat(df):
             """
         )
     display_message("It's fascinating how useful these libraries can be!", "May")
-    display_message("But I'm still having difficulty understanding this. If I want to identify the percentage of Pokémon with stats superior to a given value, how can I do that?", "May")
+    display_message("But I'm still having difficulty understanding this. If I want to identify the number of Pokémon with stats superior to a given value, how can I do that?", "May")
     display_message("That's easy. Let me show you how.", "Ash")
     stat = st.selectbox("Choose a stat to get the percentage of Pokémon having better stats than a given value", ['Total', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'])
     start = int(df[stat].min())
