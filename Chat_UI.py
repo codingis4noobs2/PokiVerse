@@ -65,14 +65,14 @@ def display_message(text, is_user='Ash'):
 
 def display_chat(df):
     # Conversation 1
-    display_message("Hey Ash👋🏼, Misty sent me this image. I was wondering what you were doing with those graphs and charts?🤔", "May")
+    display_message("Hey Ash👋🏼, Dawn sent me this image. She was wondering what you were doing with those graphs and charts?🤔", "May")
     st.image("https://i.ibb.co/Tq1JrvJ/Ash-doing-Analysis.png")
-    display_message("Hey May👋🏼, I was working on the Pokémon dataset. It's part of the prestigious Angelhack Monthly Challenge Series, and it has an overall prize pool of 5000 Pokémon Dollars💵", "Ash")
-    display_message("That's great, Ash. I'm really interested in learning more about this dataset. It will also help us with our exploration.", "May")
-    display_message("Yes, you're right May. This dataset will definitely aid in our exploration.", "Ash")
-    display_message("But I know very little about data analysis😭", "May")
-    display_message("HAHAHA, no worries May.", "Ash")
-    display_message("Let's start by loading the dataset. Don't worry, if you don't know how to do this, I have included the code for you.", "Ash")
+    display_message("Hey May👋🏼, I was analyzing the Pokémon dataset. It's part of the esteemed Angelhack Monthly Challenge Series, and it has an overall prize pool of 5000 Pokémon Dollars💵", "Ash")
+    display_message("Sounds exciting, Ash. I'm eager to learn more about this dataset. It might assist us in our explorations.", "May")
+    display_message("Absolutely, May. This dataset is indeed a valuable resource for our adventures.", "Ash")
+    display_message("I'm new to this whole data analysis field, though. 😭", "May")
+    display_message("No worries, May. We're in this together.", "Ash")
+    display_message("Let's kick off by loading the dataset. I've even included the code for you, in case you're unsure about how to do this.", "Ash")
     tab1, tab2 = st.tabs(['Dataset', 'Code'])
     with tab1:
         st.dataframe(df, height=220)
@@ -139,8 +139,8 @@ def display_chat(df):
             st.plotly_chart(fig)
             """
         )
-    display_message("Ohh, this visualization makes it very easy to identify that Flying is the most common type in both Type-1 and Type-2.", "May")
-    display_message("Good observation, May! Now, let's focus on the distribution of Pokémon stats.", "Ash")
+    display_message("This visualization makes it so easy to discern that Flying is the most common type in both Type-1 and Type-2.", "May")
+    display_message("Great observation, May! Let's now dive into the distribution of Pokémon stats.", "Ash")
     stat = st.selectbox("Choose a stat to visualize", ['Total', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'])
     tab1, tab2 = st.tabs(['Result', 'Code'])
     with tab1:
@@ -161,9 +161,9 @@ def display_chat(df):
             plt.show()
             """
         )
-    display_message("Wow, I didn't know that these libraries could be so useful.", "May")
-    display_message("But it's still hard for me to understand. If I want to know what percentage of Pokémon have better stats than a given value, how can I find that out?", "May")
-    display_message("Don't worry, I've got you covered.", "Ash")
+    display_message("It's fascinating how useful these libraries can be!", "May")
+    display_message("But I'm still having difficulty understanding this. If I want to identify the percentage of Pokémon with stats superior to a given value, how can I do that?", "May")
+    display_message("That's easy. Let me show you how.", "Ash")
     stat = st.selectbox("Choose a stat to get the percentage of Pokémon having better stats than a given value", ['Total', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'])
     start = int(df[stat].min())
     end = int(df[stat].max())
@@ -171,16 +171,16 @@ def display_chat(df):
     total_pokemon = df.shape[0]
     higher_total_pokemon = df[df[stat] > x].shape[0]
     st.write(f"{higher_total_pokemon} Pokémon have better {stat} than {x} {stat}")
-    display_message("Impressive! With your help, I can now determine the number of Pokémon that possess a higher value than the given benchmark.", "Ash")
-    display_message("Wait! How can we forget the basics?", "May")
-    display_message("Huh? What happened, Ash?", "May")
-    display_message("We can get the top 5 strongest and weakest Pokémon based on their stats. Let me show you how.", "Ash")
+    display_message("Amazing! Thanks to you, I can now ascertain the number of Pokémon that exceed a specified value.", "May")
+    display_message("Wait a second! We seemed to have skipped the basics.", "Ash")
+    display_message("What's the matter, Ash?", "May")
+    display_message("We should find out the top 5 strongest and weakest Pokémon based on their stats. Let me demonstrate how.", "Ash")
     stat = st.selectbox("Choose a stat to get the 5 Pokémon with the highest/lowest stats", ['Total', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'])
     highest_total = df.nlargest(5, stat)[['Names', stat]]
     lowest_total = df.nsmallest(5, stat)[['Names', stat]]
     st.write(highest_total)
-    display_message("That's great! I'm learning so much today!!", "May")
-    display_message("Let's analyze the Pokémon stats using a radar chart.", "Ash")
+    display_message("This is incredible! I'm gaining so much knowledge today!!", "May")
+    display_message("Let's proceed to analyze Pokémon stats using a radar chart.", "Ash")
     pokemon_name = st.selectbox("Select a Pokémon to analyze", df['Names'])
     pokemon = df[df['Names'] == pokemon_name]
     if not pokemon.empty:
@@ -193,4 +193,5 @@ def display_chat(df):
         fig = px.line_polar(df, r=[hp, attack, defense, sp_atk, sp_def, speed], theta=['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'], line_close=True)
         fig.update_traces(fill='toself')
         st.plotly_chart(fig)
-    display_message("As we have a stat looker for individual Pokémon, why not create a Pokémon comparison looker too?", "Ash")
+    display_message("Wait i got an idea💡", "Ash")
+    display_message("Since we already have a stat tracker for individual Pokémon, why don't we create a Pokémon comparator too?", "Ash")
