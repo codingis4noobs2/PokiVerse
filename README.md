@@ -59,4 +59,47 @@ This project aims to explore and visualize the battle statistics of various Pok�
 
 ## Conclusions Gained
 
+### Water Type has the highest count in Type-1, while Flying Type has highest count in Type-2.
+
+### 5 Pokémon with Highest Total
+|    | Names                    | Total |
+|---:|:-------------------------|------:|
+| 1  | Eternatus Eternamax      |  1125 |
+| 2  | Mewtwo Mega Mewtwo X     |  780  |
+| 3  | Mewtwo Mega Mewtwo Y     |  780  |
+| 4  | Rayquaza Mega Rayquaza   |  780  |
+| 5  | Kyogre Primal Kyogre     |  770  |
+
+### 5 Pokémon with Lowest Total
+|    | Names                    | Total |
+|---:|:-------------------------|------:|
+| 1  | Wishiwashi Solo Form     |  175  |
+| 2  | Sunkern                  |  180  |
+| 3  | Blipbug                  |  180  |
+| 4  | Snom                     |  185  |
+| 5  | Azurill                  |  190  |
+
+...
+
+### 5 Pokémon with Highest Speed
+|    | Names                    | Speed |
+|---:|:-------------------------|------:|
+| 1  | Regieleki                |  200  |
+| 2  | Deoxys Speed Forme       |  180  |
+| 3  | Ninjask                  |  160  |
+| 4  | Pheromosa                |  151  |
+| 5  | Alakazam Mega Alakazam   |  150  |
+
+### 5 Pokémon with Lowest Speed
+|    | Names                    | Speed |
+|---:|:-------------------------|------:|
+| 1  | Shuckle                  |   5   |
+| 2  | Munchlax                 |   5   |
+| 3  | Pyukumuku                |   5   |
+| 4  | Trapinch                 |  10   |
+| 5  | Bonsly                   |  10   |
+
+### There exists 19 such Pokemons which have same indiviual stats, i.e. HP == Attack == Defense == Sp. Atk == Sp. Def == Speed
+
+
 Feel free to explore the dataset and analyze the Pokémon stats!!!
