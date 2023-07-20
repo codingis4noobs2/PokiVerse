@@ -3,6 +3,10 @@
 ## Data Story
 This project aims to explore and visualize the battle statistics of various Pokémon species using a [pokemon dataset](https://www.kaggle.com/datasets/rohanpatil63/pokemon-dataset). The main goal of this project is to identify the Patterns/Trends & Relationships among the data, Also the project is designed in such a way that even newbies can easily understand the process of data analytics. This Project will even teach you the basics of data analytics as well learn the best practices used in the industry.
 
+## Where to access
+1. Streamlit(Hosted Online): [Pokiverse](https://pokiverse.streamlit.app/)
+2. Download the Jupyter Notebook which is inside of jupyter_notebook folder.
+
 ## Features
 
 - **Dataset Display**: The application loads and displays the Pokémon dataset, providing a tabular view of the data.
@@ -33,7 +37,7 @@ This project aims to explore and visualize the battle statistics of various Pok�
 
 - **Seaborn**: A data visualization library built on top of Matplotlib, used for enhancing the visual aesthetics of the histograms.
 
-## Usage
+## Usage(for streamlit)
 
 1. Clone this repository to your local machine.
 
@@ -41,9 +45,10 @@ This project aims to explore and visualize the battle statistics of various Pok�
 
 3. Run the application using the following command: `streamlit run app.py`
 
-
 4. Access the application in your web browser at `http://localhost:8501`.
 
 5. Follow the chat conversation between "Ash" and "May" to explore and analyze the Pokémon dataset interactively.
+
+## Conclusions Gained
 
 Feel free to explore the dataset and analyze the Pokémon stats using this interactive chat application!
