@@ -521,4 +521,4 @@ def display_chat(df):
     display_message("This shows that Fire type pokemons have a better attack than Water type pokemons but have a lower defence than water type.")
     display_message("Let's check this by getting the average values of both types, If you want to compare other stats Feel free to do so")
     display_message("Have a look in the Code section, you have to just change the Type and stat you want to compare!")
-    display_message("Great work Ash!!")
+    display_message("Great work Ash!!", "May")
