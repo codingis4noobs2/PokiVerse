@@ -41,9 +41,9 @@ This project aims to explore and visualize the battle statistics of various Pok�
 
 - **Plotly Express**: A high-level data visualization library, used for creating pie charts and radar charts.
 
-- **Matplotlib**: A popular plotting library in Python, used for creating histograms.
+- **Matplotlib**: A popular plotting library in Python for creating histograms, charts, and plots.
 
-- **Seaborn**: A data visualization library built on top of Matplotlib, used for enhancing the visual aesthetics of the histograms.
+- **Seaborn**: A data visualization library built on top of Matplotlib, used to enhance the histograms' visual aesthetics.
 
 ## Usage
 
@@ -59,7 +59,7 @@ This project aims to explore and visualize the battle statistics of various Pok�
 
 ## Conclusions Gained
 
-### Water Type has the highest count in Type-1, while Flying Type has highest count in Type-2.
+### Water Type has the highest count in Type-1, while Flying Type has the highest count in Type-2.
 
 ### 5 Pokémon with Highest Total
 |    | Names                    | Total |
@@ -99,9 +99,14 @@ This project aims to explore and visualize the battle statistics of various Pok�
 | 4  | Trapinch                 |  10   |
 | 5  | Bonsly                   |  10   |
 
-### Pokemons having top indiviual stat in a particular type can be also found and is already there on the PokiVerse Website.
+### Pokemons having top individual stat in a particular type can also be found and is already there on the PokiVerse Website.
 
-### There exists 19 such Pokemons which have same indiviual stats, i.e. HP == Attack == Defense == Sp. Atk == Sp. Def == Speed
+### There exist 19 such Pokemons which have the same individual stats, i.e. HP == Attack == Defense == Sp. Atk == Sp. Def == Speed
 
+### The distribution of total power is approximately normal, with a peak of around 500. This suggests that most Pokémon have total power around this value.
+
+### The type of a Pokémon can have a significant impact on its total power. Specifically, Pokémon of type 'Dragon' tend to have higher total power, whether it is their primary ('Type1') or secondary ('Type2') type. On the other hand, Pokémon of type 'Bug' tend to have lower total power, whether it is their primary or secondary type.
+
+### Types have a relationship with each other, For e.g. Fire Type has more Attack than Water Type, But tends to have a lower Defense than Water type.
 
 Feel free to explore the dataset and analyze the Pokémon stats!!!
