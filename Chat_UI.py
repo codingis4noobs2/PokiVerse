@@ -70,6 +70,13 @@ def display_message(text, is_user='Ash'):
 # Function to create a radar chart
 def create_radar_chart(pokemon_name, pokemon_stats):
     """
+    Creates and displays a radar chart representing the stats of a specific Pokémon.
+
+    Parameters:
+    pokemon_name (str): The name of the Pokémon for which the chart is created.
+    pokemon_stats (DataFrame): A DataFrame containing the Pokémon's stats. 
+                               The DataFrame should contain columns for 'HP', 'Attack', 'Defense', 
+                               'Sp. Atk', 'Sp. Def', and 'Speed'.
     """
     hp = pokemon_stats['HP'].values[0]
     attack = pokemon_stats['Attack'].values[0]
@@ -89,6 +96,17 @@ def create_radar_chart(pokemon_name, pokemon_stats):
 # Function to display Pokémon comparator
 def display_comparator(pokemon_name_1, pokemon_stats_1, pokemon_name_2, pokemon_stats_2):
     """
+    Creates and displays a radar chart comparing the stats of two specific Pokémon.
+
+    Parameters:
+    pokemon_name_1 (str): The name of the first Pokémon to compare.
+    pokemon_stats_1 (DataFrame): A DataFrame containing the first Pokémon's stats. 
+                                 The DataFrame should contain columns for 'HP', 'Attack', 'Defense', 
+                                 'Sp. Atk', 'Sp. Def', and 'Speed'.
+    pokemon_name_2 (str): The name of the second Pokémon to compare.
+    pokemon_stats_2 (DataFrame): A DataFrame containing the second Pokémon's stats. 
+                                 The DataFrame should contain columns for 'HP', 'Attack', 'Defense', 
+                                 'Sp. Atk', 'Sp. Def', and 'Speed'.
     """
     categories = ['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed']
     hp1, hp2 = pokemon_stats_1['HP'].values[0], pokemon_stats_2['HP'].values[0]
@@ -239,7 +257,45 @@ def display_chat(df):
             """
         )
 
+
     # Conversation 6
+    display_message("Let's see which Type in Type1 has highest Total Power")
+    tab1, tab2 = st.tabs(['Results', 'Code'])
+    with tab1:
+        plt.figure(figsize=(14,6))
+        type1_total = df.groupby('Type1')['Total'].mean().sort_values()
+        sns.barplot(x=type1_total.index, y=type1_total.values)
+        plt.title('Average Total Power by Type1')
+        plt.xticks(rotation=90)
+        st.pyplot(plt)
+        display_message("Let's see which Type in Type2 has highest Total Power")
+        plt.figure(figsize=(14,6))
+        type1_total = df.groupby('Type2')['Total'].mean().sort_values()
+        sns.barplot(x=type1_total.index, y=type1_total.values)
+        plt.title('Average Total Power by Type1')
+        plt.xticks(rotation=90)
+        st.pyplot(plt)
+    with tab2:
+        st.code(
+            """
+            plt.figure(figsize=(14,6))
+            type1_total = df.groupby('Type1')['Total'].mean().sort_values()
+            sns.barplot(x=type1_total.index, y=type1_total.values)
+            plt.title('Average Total Power by Type1')
+            plt.xticks(rotation=90)
+            st.pyplot(plt)
+            display_message("Let's see which Type in Type2 has highest Total Power")
+            plt.figure(figsize=(14,6))
+            type1_total = df.groupby('Type2')['Total'].mean().sort_values()
+            sns.barplot(x=type1_total.index, y=type1_total.values)
+            plt.title('Average Total Power by Type1')
+            plt.xticks(rotation=90)
+            st.pyplot(plt)
+            """
+        )
+
+
+    # Conversation 7
     display_message("It's fascinating how useful these libraries can be!", "May")
     display_message("But I'm still having difficulty understanding this, If I want to identify the number of Pokémons with stats superior to a given value, how can I do that?", "May")
     display_message("That's easy. Let me show you how.", "Ash")
@@ -262,7 +318,7 @@ def display_chat(df):
         )
 
     
-    # Conversation 7
+    # Conversation 8
     display_message("Amazing! Thanks to you, I can now ascertain the number of Pokémon that exceed a specified value.", "May")
     display_message("Wait a second! We seemed to have skipped the very basic part", "Ash")
     display_message("What did we miss, Ash?", "May")
@@ -270,76 +326,199 @@ def display_chat(df):
     stat_choosen = st.selectbox("Choose a stat to get the 5 Pokémon with the highest/lowest stats", ['Total', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'])
     top_five = df.nlargest(5, stat_choosen)[['Names', stat_choosen]]
     bottom_five = df.nsmallest(5, stat_choosen)[['Names', stat_choosen]]
-    col1, col2 = st.columns(2)
-    with col1:
-        st.write(f"Pokemons Having Highest {stat_choosen}")
-        st.write(top_five)
-    with col2:
-        st.write(f"Pokemons Having Lowest {stat_choosen}")
-        st.write(bottom_five)
+    tab1, tab2 = st.tabs(['Results', 'Code'])
+    with tab1:
+        col1, col2 = st.columns(2)
+        with col1:
+            st.write(f"Pokemons Having Highest {stat_choosen}")
+            st.write(top_five)
+        with col2:
+            st.write(f"Pokemons Having Lowest {stat_choosen}")
+            st.write(bottom_five)
+    with tab2:
+        st.code(
+            """
+            top_five = df.nlargest(5, stat_choosen)[['Names', stat_choosen]]
+            bottom_five = df.nsmallest(5, stat_choosen)[['Names', stat_choosen]]
+            """
+        )
    
 
-    # Conversation 8
+    # Conversation 9
     display_message("Similary, we can get the best pokemons of any Type with indiviual stats or total stats")
     stat_choosen = st.selectbox("Choose a stat to get the 5 Pokémon with the highest/lowest stats of a Type", ['Total', 'HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'])
     type_choosen = st.selectbox("Choose a Type", df['Type1'].unique())
     choosen_pokemon = df[df['Type1'] == type_choosen]
     sorted_choosen_pokemon_top = choosen_pokemon.sort_values(stat, ascending=False).head(5)[['Names', stat_choosen]]
     sorted_choosen_pokemon_bottom = choosen_pokemon.sort_values(stat, ascending=True).head(5)[['Names', stat_choosen]]
-    col1, col2 = st.columns(2)
-    with col1:
-        st.write(f"{type_choosen} Type Pokemons Having Highest {stat_choosen}")
-        st.dataframe(sorted_choosen_pokemon_top)
-    with col2:
-        st.write(f"{type_choosen} Type Pokemons Having Lowest {stat_choosen}")
-        st.dataframe(sorted_choosen_pokemon_bottom)
+    tab1, tab2 = st.tabs(['Results', 'Code'])
+    with tab1:
+        col1, col2 = st.columns(2)
+        with col1:
+            st.write(f"{type_choosen} Type Pokemons Having Highest {stat_choosen}")
+            st.dataframe(sorted_choosen_pokemon_top)
+        with col2:
+            st.write(f"{type_choosen} Type Pokemons Having Lowest {stat_choosen}")
+            st.dataframe(sorted_choosen_pokemon_bottom)
+    with tab2:
+        st.code(
+            """
+            choosen_pokemon = df[df['Type1'] == type_choosen]
+            sorted_choosen_pokemon_top = choosen_pokemon.sort_values(stat, ascending=False).head(5)[['Names', stat_choosen]]
+            sorted_choosen_pokemon_bottom = choosen_pokemon.sort_values(stat, ascending=True).head(5)[['Names', stat_choosen]]
+            """
+        )
 
-    # Conversation 9
+
+    # Conversation 10
     display_message("This is incredible! I'm gaining so much knowledge today!!", "May")
     display_message("Let's proceed to analyze Pokémon stats using a radar chart.", "Ash")
     pokemon_name = st.selectbox("Select a Pokémon to analyze", df['Names'])
     pokemon_stats = df[df['Names'] == pokemon_name]
-    create_radar_chart(pokemon_name, pokemon_stats)
+    tab1, tab2 = st.tabs(['Results', 'Code'])
+    with tab1:
+        create_radar_chart(pokemon_name, pokemon_stats)
+    with tab2:
+        st.code(
+            """
+            hp = pokemon_stats['HP'].values[0]
+            attack = pokemon_stats['Attack'].values[0]
+            defense = pokemon_stats['Defense'].values[0]
+            sp_atk = pokemon_stats['Sp. Atk'].values[0]
+            sp_def = pokemon_stats['Sp. Def'].values[0]
+            speed = pokemon_stats['Speed'].values[0]
+            fig = px.line_polar(
+                r = [hp, attack, defense, sp_atk, sp_def, speed], 
+                theta=['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed'], 
+                line_close=True
+            )
+            fig.update_layout(title=f"Stats of {pokemon_name}")
+            fig.update_traces(fill='toself')
+            fig.show()
+            """
+        )
     
 
-    # Conversation 10
+    # Conversation 11
     display_message("Wait i got an idea💡", "Ash")
     display_message("Since we already have a stat tracker for individual Pokémon, why don't we create a Pokémon comparator too?", "Ash")
     pokemon_name_1 = st.selectbox("Select the first Pokémon", df['Names'], key="1")
     pokemon_name_2 = st.selectbox("Select the second Pokémon", df['Names'], key="2")
     pokemon_stats_1 = df[df['Names'] == pokemon_name_1]
     pokemon_stats_2 = df[df['Names'] == pokemon_name_2]
-    display_comparator(
-        pokemon_name_1, 
-        pokemon_stats_1, 
-        pokemon_name_2, 
-        pokemon_stats_2
-    )
+    tab1, tab2 = st.tabs(['Results', 'Code'])
+    with tab1:
+        display_comparator(
+            pokemon_name_1, 
+            pokemon_stats_1, 
+            pokemon_name_2, 
+            pokemon_stats_2
+        )
+    with tab2:
+        st.code(
+            """
+            categories = ['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed']
+            hp1, hp2 = pokemon_stats_1['HP'].values[0], pokemon_stats_2['HP'].values[0]
+            attack1, attack2 = pokemon_stats_1['Attack'].values[0], pokemon_stats_2['Attack'].values[0]
+            defense1, defense2 = pokemon_stats_1['Defense'].values[0], pokemon_stats_2['Defense'].values[0]
+            sp_atk1, sp_atk2 = pokemon_stats_1['Sp. Atk'].values[0], pokemon_stats_2['Sp. Atk'].values[0]
+            sp_def1, sp_def2 = pokemon_stats_1['Sp. Def'].values[0], pokemon_stats_2['Sp. Def'].values[0]
+            speed1, speed2 = pokemon_stats_1['Speed'].values[0], pokemon_stats_2['Speed'].values[0]
+
+            fig = go.Figure()
+
+            fig.add_trace(go.Scatterpolar(
+                r=[hp1, attack1, defense1, sp_atk1, sp_def1, speed1],
+                theta=categories,
+                fill='toself',
+                name=pokemon_name_1
+            ))
+
+            fig.add_trace(go.Scatterpolar(
+                r=[hp2, attack2, defense2, sp_atk2, sp_def2, speed2],
+                theta=categories,
+                fill='toself',
+                name=pokemon_name_2
+            ))
+
+            fig.update_layout(title=f"Stats of {pokemon_name_1} vs {pokemon_name_2}")
+            fig.show()
+            """
+        )
     display_message("Woohooo🥳, This comparison is gonna help us very much in our exploration", "May")
 
 
-    # Conversation 11
-    display_message("what do you think May, Is it possible there exists a Pokemon who has all same stats?")
+    # Conversation 12
+    display_message("What do you think May, Is it possible there exists a Pokemon who has all same stats?")
     display_message("Woah, that maybe possible though", "May")
     display_message("Let's see, we can try")
     df_equal_stats = df[df[['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed']].apply(lambda x: x.nunique() == 1, axis=1)]
-    st.dataframe(df_equal_stats)
+    tab1, tab2 = st.tabs(['Results', 'Code'])
+    with tab1:
+        st.dataframe(df_equal_stats)
+    with tab2:
+        st.code(
+            """
+            df_equal_stats = df[df[['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed']].apply(lambda x: x.nunique() == 1, axis=1)]
+            """
+        )
     display_message("There exists some Pokemons who have such stats👀, This is crazy")
 
 
-    # Conversation 12
+    # Conversation 13
     display_message("Let's try Comparing One Type vs Another Type")
     display_message("Yes, that will give even more details about the Pokemon nature", "May")
-    fire=df[(df['Type1']=='Fire') | ((df['Type2'])=="Fire")] #contains all fire pokemons
-    water=df[(df['Type1']=='Water') | ((df['Type2'])=="Water")]  #all water pokemons
-    plt.figure(figsize=(10, 6))
-    plt.scatter(fire.Attack.head(50),fire.Defense.head(50),color='red',label='Fire',marker="*",s=50)
-    plt.scatter(water.Attack.head(50),water.Defense.head(50),color='blue',label="Water",s=25)
-    plt.xlabel("Attack")
-    plt.ylabel("Defense")
-    plt.legend()
-    plt.plot()
-    fig=plt.gcf()
-    fig.set_size_inches(12,6)
-    st.pyplot(fig)
+    fire_pokemon = df[(df['Type1'] == 'Fire') | ((df['Type2']) == "Fire")] #contains all fire pokemons
+    water_pokemon = df[(df['Type1'] == 'Water') | ((df['Type2']) == "Water")]  #all water pokemons
+    tab1, tab2 = st.tabs(['Results', 'Code'])
+    with tab1:
+        plt.figure(figsize=(10, 6))
+        plt.scatter(fire_pokemon.Attack.head(50), fire_pokemon.Defense.head(50), color = 'red', label = 'Fire',marker = "*",s = 50)
+        plt.scatter(water_pokemon.Attack.head(50), water_pokemon.Defense.head(50), color = 'blue', label = "Water",s = 25)
+        plt.xlabel("Attack")
+        plt.ylabel("Defense")
+        plt.legend()
+        plt.plot()
+        fig=plt.gcf()
+        fig.set_size_inches(12,6)
+        st.pyplot(fig)
+    with tab2:
+        st.code(
+            """
+            plt.figure(figsize=(10, 6))
+            plt.scatter(fire_pokemon.Attack.head(50), fire_pokemon.Defense.head(50), color = 'red', label = 'Fire',marker = "*",s = 50)
+            plt.scatter(water_pokemon.Attack.head(50), water_pokemon.Defense.head(50), color = 'blue', label = "Water",s = 25)
+            plt.xlabel("Attack")
+            plt.ylabel("Defense")
+            plt.legend()
+            plt.plot()
+            fig=plt.gcf()
+            fig.set_size_inches(12,6)
+            st.pyplot(fig)
+
+            # fire_pokemon = df[df['Type1'] == 'Fire']
+            # water_pokemon = df[df['Type1'] == 'Water']
+
+            # fire_total_mean = fire_pokemon['Total'].mean()
+            # water_total_mean = water_pokemon['Total'].mean()
+
+            # fire_attack_mean = fire_pokemon['Attack'].mean()
+            # water_attack_mean = water_pokemon['Attack'].mean()
+
+            # fire_defense_mean = fire_pokemon['Defense'].mean()
+            # water_defense_mean = water_pokemon['Defense'].mean()
+
+            # fire_sp_atk_mean = fire_pokemon['Sp. Atk'].mean()
+            # water_sp_atk_mean = water_pokemon['Sp. Atk'].mean()
+
+            # fire_sp_def_mean = fire_pokemon['Sp. Def'].mean()
+            # water_sp_def_mean = water_pokemon['Sp. Def'].mean()
+
+            # fire_speed_mean = fire_pokemon['Speed'].mean()
+            # water_speed_mean = water_pokemon['Speed'].mean()
+            """
+        )
     display_message("This shows that Fire type pokemons have a better attack than Water type pokemons but have a lower defence than water type.")
+    display_message("Let's check this by getting the average values of both types, If you want to compare other stats Feel free to do so")
+    display_message("Have a look in the Code section, you have to just change the Type and stat you want to compare!")
+    display_message("Great work Ash!!")
