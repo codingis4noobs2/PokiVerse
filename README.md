@@ -99,6 +99,8 @@ This project aims to explore and visualize the battle statistics of various Pok√
 | 4  | Trapinch                 |  10   |
 | 5  | Bonsly                   |  10   |
 
+### Pokemons having top indiviual stat in a particular type can be also found and is already there on the PokiVerse Website.
+
 ### There exists 19 such Pokemons which have same indiviual stats, i.e. HP == Attack == Defense == Sp. Atk == Sp. Def == Speed
 
 
