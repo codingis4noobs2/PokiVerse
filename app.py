@@ -14,10 +14,10 @@ def load_data(file_path):
 # Function to display content on the sidebar
 def display_sidebar_content():
     """Displays content on the sidebar."""
-    st.sidebar.markdown("About")
+    st.sidebar.subheader("About")
+    st.sidebar.markdown("Goes through finding patterns/trends in the Pokemon Dataset, Also teaches you basics of data analysis")
     st.sidebar.markdown("Dataset Link: [Pokemon Dataset](https://www.kaggle.com/datasets/rohanpatil63/pokemon-dataset)")
     st.sidebar.markdown("You can support it by starring:star: the project, Github Link: [PokiVerse](https://github.com/codingis4noobs2/PokiVerse)")
-    st.sidebar.markdown("Credits:")
 
 # Main function to run the app
 def main():
