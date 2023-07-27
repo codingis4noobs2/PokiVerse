@@ -1,3 +1,5 @@
+This project won 3rd prize at the prestigious Angelhack monthly code challenge
+
 # PokiVerse
 ![PokiVerse](https://i.ibb.co/4g9vGt2/Poki-Verse.png)
 
