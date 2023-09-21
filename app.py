@@ -26,7 +26,8 @@ def main():
     st.set_page_config(
         page_title="PokiVerse", 
         page_icon="pokeball.ico", 
-        initial_sidebar_state="collapsed"
+        initial_sidebar_state="collapsed",
+        layout="wide"
     )
 
     # Main page starts
